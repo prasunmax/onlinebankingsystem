@@ -1,0 +1,42 @@
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+
+		<a class="navbar-brand" href="${pageContext.request.contextPath}">Bank
+			Management System</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarText" aria-controls="navbarText"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link active"
+						href="${pageContext.request.contextPath}/profile"> Home </a></li>
+					<li class="nav-item"><a class="nav-link" href="loan">Loan</a></li>
+					<li class="nav-item"><a class="nav-link" href="update-profile">Update
+							Profile</a></li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ADMIN')">
+					<li class="nav-item"><a class="nav-link" href="loans">Loan
+							Requests</a></li>
+
+				</sec:authorize>
+				<sec:authorize access="!isAuthenticated()">
+					<li class="nav-item"><a class="nav-link" href="register">Register</a></li>
+				</sec:authorize>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<sec:authorize access="isAuthenticated()">
+					<li><a href="logout">Logout</a></li>
+				</sec:authorize>
+				<sec:authorize access="!isAuthenticated()">
+					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+				</sec:authorize>
+			</ul>
+		</div>
+	</div>
+</nav>
